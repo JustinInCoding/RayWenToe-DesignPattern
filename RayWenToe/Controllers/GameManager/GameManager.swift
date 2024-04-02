@@ -88,7 +88,7 @@ public class GameManager {
     gameboard.clear()
     gameplayView.gameboardView.clear()
 
-    // TODO: - Reset movesForPlayers
+		movesForPlayer = [player1: [], player2: []]
 
     currentStateIndex = 0
     currentState.begin()

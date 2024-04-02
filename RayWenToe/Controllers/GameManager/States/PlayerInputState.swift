@@ -83,11 +83,22 @@ public class PlayerInputState: GameState {
   }
 
   public override func handleActionPressed() {
-    // TODO: - Handle action pressed
+		guard movesForPlayer[player]!.count == turnsPerPlayer else { return }
+		gameManager.transitionToNextState()
   }
 
   public override func handleUndoPressed() {
-    // TODO: - Handle undo pressed
+    var moves = movesForPlayer[player]!
+		guard let position = moves.popLast()?.position else { return }
+		
+		movesForPlayer[player] = moves
+		updateMoveCountLabel()
+		
+		let markView = gameboardView.markViewForPosition[position]!
+		_ = markView.turnNumbers.popLast()
+		
+		guard markView.turnNumbers.count == 0 else { return }
+		gameboardView.removeMarkView(at: position, animated: false)
   }
 }
 
